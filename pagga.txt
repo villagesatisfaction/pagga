@@ -1,0 +1,415 @@
+When search distric, it will appera
+
+---------- C O D E -------------------
+distric(gampaha,west).
+distric(colombo,west).
+distric(kaluthara,west).
+
+distric(trincomali,eastern).
+distric(batticalo,eastern).
+distric(ampara,eastern).
+
+distric(jaffna,noth).
+distric(wauniyawa,noth).
+distric(kilinochchi,noth).
+
+distric(anuradhapura,noth_center).
+distric(polonnaduwa,noth_center).
+
+distric(badulla,uva).
+distric(monaragala,uva).
+
+distric(hambanthota,south).
+distric(matara,south).
+distric(galle,south).
+
+distric(mathale,central).
+distric(kandy,central).
+distric(nuwara,central).
+
+distric(puththalama,noth_west).
+distric(kurunagala,noth_west).
+
+distric(kagalla,sabaragamuwa).
+
+province(west).
+province(eastern).
+province(noth).
+province(noth_center).
+province(uva).
+province(south).
+province(central).
+province(noth_west).
+province(sabaragamuwa).
+
+province(X,Y) :- distric(X,Y).
+
+*********** COMPILE*************
+1) province(X,west).
+2) province(gampaha,west).
+3) province(jaffna,Y)
+
+Conjuction & Disjunction
+
+---------- C O D E -------------------
+%Facts
+likes(john,pizza).
+likes(john,ice_cream).
+likes(mary,pizza).
+likes(susan,salad).
+
+%Rules
+%Conjuction: Both John & Mary like pizza
+likes_pizza(X) :- likes(john,X), likes(mary,X).
+
+%Disjunction: Either John likes pizza or Susan likes salad
+likes_pizza_or_salad(X) :- likes(john,X); likes(susan,X).
+
+%Rul to list the items liked by john
+items_liked_by_john(X) :- likes(john,X).
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 *********** COMPILE*************                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 likes_pizza(pizza).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+
+
+
+
+---------- C O D E -------------------
+
+----There are twelve months in a year. Each month end-up with a specific number of days.
+The days are as follows,---
+days(january, 31).
+days(february, 28).
+days(march, 31).
+days(april, 30).
+days(may, 31).
+days(june, 30).
+days(july, 31).
+days(august, 31).
+days(september, 30).
+days(october, 31).
+days(november, 30).
+days(december, 31).
+
+show_days(Month) :-
+    days(Month, NumDays),
+    write('Number of days in '), write(Month), write(' is '), write(NumDays), write('.').
+
+
+compiler
+?- show_days(january).
+
+
+----Calculate the density of each country.
+Country Population Area
+China 1000 10
+India 85 4
+USA 65 6
+UK 80 12-----
+population(china, 1000).
+population(india, 85).
+population(usa, 65).
+population(uk, 80).
+
+area(china, 10).
+area(india, 4).
+area(usa, 6).
+area(uk, 12).
+
+calculate_density(Country, Density) :-
+    population(Country, Population),
+    area(Country, Area),
+    Density is Population / Area.
+
+
+
+
+
+
+
+------Task 04:
+1. Define a rule to check whether the user is a child or an adult.
+(Hint: The age lower than 18 is considered a child. Others are elders.)
+I. if the age is 20 years.
+II. if the age is 17 years.
+III. if the age is 18 years.-----
+
+check_age( Age, Result ) :-
+    Age < 18,
+    Result = 'Child'.
+
+check_age( Age, Result ) :-
+    Age >= 18,
+    Result = 'Adult'.
+
+
+compiler
+?- check_age(20, Result).
+Result = 'Adult'.
+
+
+
+
+------Create a knowledge base to calculate the sum of the two decimal values.---
+sum_decimal(Decimal1, Decimal2, Sum) :-
+    Sum is Decimal1 + Decimal2.
+
+compiler
+?- sum_decimal(2.5, 3.7, Result).
+
+------Alter the knowledge base to read two integer values and display the multiplication of
+them.--
+multiply_integer(Integer1, Integer2, Product) :-
+    Product is Integer1 * Integer2.
+
+compiler
+?- multiply_integer(5, 7, Result).
+
+-------Allow the user to insert the two values and the arithmetic operation to perform the
+calculation---
+
+perform_arithmetic_operation :-
+    write('Enter the first value: '),
+    read(Value1),
+    write('Enter the second value: '),
+    read(Value2),
+    write('Enter the arithmetic operation (+, -, *, /): '),
+    read(Operation),
+    calculate_result(Value1, Value2, Operation).
+
+calculate_result(Value1, Value2, '+') :-
+    Result is Value1 + Value2,
+    write('Result: '), writeln(Result).
+
+calculate_result(Value1, Value2, '-') :-
+    Result is Value1 - Value2,
+    write('Result: '), writeln(Result).
+
+calculate_result(Value1, Value2, '*') :-
+    Result is Value1 * Value2,
+    write('Result: '), writeln(Result).
+
+calculate_result(Value1, Value2, '/') :-
+    Value2 =\= 0,
+    Result is Value1 / Value2,
+    write('Result: '), writeln(Result).
+
+calculate_result(_, _, Operation) :-
+    write('Invalid operation: '), write(Operation), writeln('. Please try again.').
+
+compiler
+?- perform_arithmetic_operation.
+
+
+------Alter the previous command to find the BMI value for the user-specified values--
+?- write('Enter weight (in kg): '), read(Weight),
+   write('Enter height (in meters): '), read(Height),
+   BMI is Weight / (Height * Height),
+   writeln('BMI: '), writeln(BMI).
+
+compiler
+Enter weight (in kg): 65.
+Enter height (in meters): 1.75.
+BMI:
+21.224489795918366
+
+
+
+------Write a rule to find the BMI--
+calculate_bmi(Weight, Height, BMI) :-
+    BMI is Weight / (Height * Height).
+
+compiler 
+?- calculate_bmi(55, 1.65, BMI).
+
+
+
+------Calculator---
+% Addition
+add(X, Y, Result) :-
+    Result is X + Y.
+
+% Subtraction
+subtract(X, Y, Result) :-
+    Result is X - Y.
+
+% Multiplication
+multiply(X, Y, Result) :-
+    Result is X * Y.
+
+% Division
+divide(X, Y, Result) :-
+    Y =\= 0,
+    Result is X / Y.
+
+% Calculator interface
+calculator :-
+    write('Enter the first number: '),
+    read(X),
+    write('Enter the second number: '),
+    read(Y),
+    write('Enter the operator (+, -, *, /): '),
+    read(Operator),
+    perform_operation(X, Y, Operator).
+
+% Perform operation based on the operator
+perform_operation(X, Y, '+') :-
+    add(X, Y, Result),
+    write('Result: '), writeln(Result).
+
+perform_operation(X, Y, '-') :-
+    subtract(X, Y, Result),
+    write('Result: '), writeln(Result).
+
+perform_operation(X, Y, '*') :-
+    multiply(X, Y, Result),
+    write('Result: '), writeln(Result).
+
+perform_operation(X, Y, '/') :-
+    divide(X, Y, Result),
+    write('Result: '), writeln(Result).
+
+perform_operation(_, _, Operator) :-
+    write('Invalid operator: '), write(Operator), writeln('. Please try again.').
+
+
+compiler
+?- calculator.
+
+
+
+
+------IF-Then- Else Condition.Write a rule to compares two numbers.------
+compare_numbers(X, Y) :-
+    X > Y,
+    writeln('X is greater than Y').
+compare_numbers(X, Y) :-
+    X < Y,
+    writeln('X is less than Y').
+compare_numbers(X, Y) :-
+    X =:= Y,
+    writeln('X is equal to Y').
+
+Compiler?- compare_numbers(5, 3).
+
+-------Allow user to insert two numbers to compare the numbers.---
+compare_numbers :-
+    write('Enter the first number: '),
+    read(X),
+    write('Enter the second number: '),
+    read(Y),
+    compare(X, Y).
+
+compare(X, Y) :-
+    X > Y,
+    writeln('X is greater than Y').
+compare(X, Y) :-
+    X < Y,
+    writeln('X is less than Y').
+compare(X, Y) :-
+    X =:= Y,
+    writeln('X is equal to Y').
+
+Compiler?- compare_numbers.
+
+-------Write a rule to determine the student Grade according to the following information.
+• User enter the 3 marks.
+• Calculate the average of above marks.
+• If the student average is greater than or equal 50, then “Pass”.
+• Else average is less than 50, then “Fail.----
+
+determine_grade :-
+    write('Enter mark 1: '),
+    read(Mark1),
+    write('Enter mark 2: '),
+    read(Mark2),
+    write('Enter mark 3: '),
+    read(Mark3),
+    calculate_average(Mark1, Mark2, Mark3, Average),
+    write('Average marks: '), writeln(Average),
+    determine_pass_fail(Average, Grade),
+    write('Grade: '), writeln(Grade).
+
+calculate_average(Mark1, Mark2, Mark3, Average) :-
+    Average is (Mark1 + Mark2 + Mark3) / 3.
+
+determine_pass_fail(Average, Grade) :-
+    Average >= 50,
+    Grade = 'Pass'.
+determine_pass_fail(Average, Grade) :-
+    Average < 50,
+    Grade = 'Fail'.
+
+Compiler?- determine_grade.
+
+
+-------Loop with condition
+1. Create a knowledge base to
+I. Display 5 times of “Looping…”----
+
+looping(Count) :-
+    Count > 0,
+    writeln("Looping..."),
+    NewCount is Count - 1,
+    looping(NewCount).
+
+looping(0).
+
+Compiler?- looping(5).
+
+
+---count the numbers until 10.---
+count_numbers(Num) :-
+    Num =< 10,
+    writeln(Num),
+    NewNum is Num + 1,
+    count_numbers(NewNum).
+
+count_numbers(Num) :-
+    Num > 10.
+
+
+Compiler?- count_numbers(1).
+
+
+---the integer value from a specified value down to 1---
+
+count_down(Num) :-
+    Num >= 1,
+    writeln(Num),
+    NewNum is Num - 1,
+    count_down(NewNum).
+
+count_down(Num) :-
+    Num < 1.
+
+Compiler?- count_down(10).
+
+
+---Calculate the density of each District.
+ 𝐷𝑒𝑛𝑠𝑖𝑡𝑦 = (
+𝑃𝑜𝑝𝑢𝑙𝑎𝑡𝑖𝑜𝑛
+𝐴𝑟𝑒𝑎 )
+• Define the suitable set of facts to represent the population and Area.
+• Create a rule to calculate the density.---
+
+% Facts representing population and area
+population(kandy, 1650).
+population(ampara, 865).
+population(jaffna, 798).
+population(colombo, 3650).
+
+area(kandy, 160).
+area(ampara, 450).
+area(jaffna, 265).
+area(colombo, 80).
+
+% Rule to calculate density
+density(District, Density) :-
+    population(District, Population),
+    area(District, Area),
+    Density is Population / Area.
+
+Compiler ?- density(kandy, Density).
+
+
+---
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
